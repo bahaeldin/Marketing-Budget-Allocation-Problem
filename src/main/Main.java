@@ -3,7 +3,11 @@
  */
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import ga.Channel;
 
 /**
  * @author BAHAELDIN
@@ -15,12 +19,31 @@ public class Main {
 	 * @param BAHAELDIN
 	 */
 	public static void main(String[] args) {
+		
 		System.out.println(message_1);
-		int budget = Integer.parseInt(input.next());
+		int budget = Integer.parseInt(input.nextLine());
 		
 		System.out.println(message_2);
-		int channels = Integer.parseInt(input.next());
+		int channelsNumber = Integer.parseInt(input.nextLine());
 		
+		
+		System.out.println(message_3);
+		String line;
+		List<Channel> channels = new ArrayList<Channel>();
+		
+		while (channelsNumber != 0) {
+			line = input.nextLine();
+			channels.add(new Channel().parsLine(line,true));
+			channelsNumber--;
+		}
+		
+		System.out.println(message_4);
+		for (int i = 0; i < channels.size(); i++) {
+			line = input.nextLine();
+			channels.get(i).parsLine(line, false);
+		}
+		
+		System.out.println(message_5);
 		input.close();
 	}
 	
