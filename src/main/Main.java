@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param BAHAELDIN
 	 */
 	public static void main(String[] args) {
 		System.out.println(message_1);
