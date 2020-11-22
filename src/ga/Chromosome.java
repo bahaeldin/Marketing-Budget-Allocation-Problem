@@ -1,5 +1,6 @@
 package ga;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -60,7 +61,6 @@ public class Chromosome {
 	public void setGenes(List<Channel> channels, float budget) {
 		
 		float lBound = 0, uBound = 0, random = 0, max = 0, min = 0;
-		
 		for (int i = 0; i < channels.size(); i++) {
 			lBound = channels.get(i).getlBound() == 0 ? 0 : (channels.get(i).getlBound() / 100 ) * budget;
 			uBound = channels.get(i).getuBound() == 0 ? 0 : (channels.get(i).getuBound() / 100 ) * budget;
@@ -85,8 +85,59 @@ public class Chromosome {
 		}
 		return totalallocation;
 	}
+	
 	public void fixchromosome(float budget) {
 		
+	}
+	
+	public void clone(Chromosome chromosome) {
+		for(int i = 0; i < this.getSize(); i++) {
+			this.genes[i] = chromosome.genes[i];
+		}
+	}
+	
+	public void doMutation(float mutationProbability) {
+		float probabilityToDoCrossover = floatRand.nextFloat();
+		
+		for(float gene : this.genes) { 
+			if (probabilityToDoCrossover < mutationProbability) {
+				// do something 
+			}
+		}
+		
+	}
+	
+	public static List<Chromosome> replaceGeneration(List<Chromosome> population, List<Chromosome> currentGeneration) {
+		
+		List<Chromosome> nextGeneration = new ArrayList<Chromosome>();
+		float max = 0;
+		int index = 0;
+       
+		for (int i = 0; i < 4; i++) {
+        	index = 0;
+        	max = population.get(i).getFitness();
+            for (int j = 0; j < population.size(); j++) {
+               if(population.get(j).getFitness() > max) {
+            	   max = population.get(j).getFitness();
+            	   index = j;
+               }
+            }
+            nextGeneration.add(population.remove(index));  
+        }
+        
+        for (int i = 0; i < 5; i++) {
+        	index = 0;
+        	max = currentGeneration.get(i).getFitness();
+            for (int j = 0; j < currentGeneration.size(); j++) {
+                if (currentGeneration.get(j).getFitness() > max) {
+                    max = currentGeneration.get(j).getFitness();
+                    index = j;
+                }
+            }
+            nextGeneration.add(currentGeneration.remove(index));
+        }
+	    
+		return nextGeneration;	
 	}
 	
 }

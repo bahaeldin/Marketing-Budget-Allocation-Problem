@@ -27,9 +27,7 @@ public class Main {
 		System.out.println(message_2);
 		int channelsNumber = Integer.parseInt(input.nextLine());
 		
-		
 		System.out.println(message_3);
-		String line;
 		List<Channel> channels = new ArrayList<Channel>();
 		
 		while (channelsNumber != 0) {
@@ -44,13 +42,22 @@ public class Main {
 			channels.get(i).parsLine(line, false);
 		}
 		
+		// start algorithm 
 		System.out.println(message_5);
+		for (int i = 0; i < trailNumber ; i++) {
+		  // ga uniform 
+		  // ga nonuniform
+		}
+		
 		GA ga = new GA(channels,budget);
 		ga.start();
+		
 		input.close();
 	}
 	
 	public static Scanner input = new Scanner(System.in); 
+	public static final int trailNumber = 20; 
+	public static String line;
 	public static String message_1 = "Enter the marketing budget (in thousands):";
 	public static String message_2 = "Enter the number of marketing channels:";
 	public static String message_3 = "Enter the name and ROI (in %) of each channel separated by space:";
