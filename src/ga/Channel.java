@@ -79,6 +79,7 @@ public class Channel {
 		this.lBound = lBound;
 	}
 	
+	
 	public Channel parsLine(String line, Boolean flag) {
 		
 		String[] temp = line.split(" ");		

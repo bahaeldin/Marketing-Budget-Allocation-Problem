@@ -46,7 +46,6 @@ public class Main {
 		
 		System.out.println(message_5);
 		GA ga = new GA(channels,budget);
-		ga.initializePopulation();
 		ga.start();
 		input.close();
 	}
