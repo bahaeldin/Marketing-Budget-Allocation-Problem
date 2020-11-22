@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import ga.Channel;
+import ga.GA;
 
 /**
  * @author BAHAELDIN
@@ -21,7 +22,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		System.out.println(message_1);
-		int budget = Integer.parseInt(input.nextLine());
+		float budget = Float.parseFloat(input.nextLine());
 		
 		System.out.println(message_2);
 		int channelsNumber = Integer.parseInt(input.nextLine());
@@ -44,6 +45,9 @@ public class Main {
 		}
 		
 		System.out.println(message_5);
+		GA ga = new GA(channels,budget);
+		ga.initializePopulation();
+		ga.start();
 		input.close();
 	}
 	
