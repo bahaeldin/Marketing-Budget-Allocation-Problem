@@ -74,8 +74,7 @@ public class Chromosome {
 	
 	public boolean checkConstraints(float budget) {
 		float totalallocation = this.getTotalallocation();
-		return totalallocation <= budget ;
-		
+		return totalallocation <= budget ;	
 	}
 	
 	private float getTotalallocation() {
@@ -87,7 +86,12 @@ public class Chromosome {
 	}
 	
 	public void fixchromosome(float budget) {
-		
+		float totalallocation = this.getTotalallocation();
+		if (totalallocation > budget) {
+			 
+		}else {
+			
+		}
 	}
 	
 	public void clone(Chromosome chromosome) {
@@ -96,12 +100,29 @@ public class Chromosome {
 		}
 	}
 	
-	public void doMutation(float mutationProbability) {
-		float probabilityToDoCrossover = floatRand.nextFloat();
+	public void doMutation(float mutationProbability, List<Channel> channels) {
+		float probabilityToDoCrossover = 0,diff = 0, diffLower = 0, diffUpper =0;
 		
-		for(float gene : this.genes) { 
+		for(int i = 0; i < this.genes.length; i++) { 
+			
+			probabilityToDoCrossover = floatRand.nextFloat();
 			if (probabilityToDoCrossover < mutationProbability) {
-				// do something 
+				diffLower = this.genes[i] - channels.get(i).getlBound();
+				diffUpper = channels.get(i).getuBound() - this.genes[i];
+				
+				probabilityToDoCrossover = floatRand.nextFloat();
+				
+				if (probabilityToDoCrossover <= 0.5) {
+					diff = diffLower;
+                 } else {
+                	 diff = diffUpper;
+                 }
+				
+                if (diff == diffLower) {
+                	this.genes[i] = this.genes[i] - diff;
+                } else {
+                	this.genes[i] = this.genes[i] + diff;
+                }
 			}
 		}
 		
@@ -113,19 +134,20 @@ public class Chromosome {
 		float max = 0;
 		int index = 0;
        
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < currentGeneration.size(); i++) {
         	index = 0;
         	max = population.get(i).getFitness();
-            for (int j = 0; j < population.size(); j++) {
+           
+        	for (int j = 0; j < population.size(); j++) {
                if(population.get(j).getFitness() > max) {
             	   max = population.get(j).getFitness();
             	   index = j;
                }
             }
-            nextGeneration.add(population.remove(index));  
+            nextGeneration.add(population.get(index));  
         }
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < currentGeneration.size(); i++) {
         	index = 0;
         	max = currentGeneration.get(i).getFitness();
             for (int j = 0; j < currentGeneration.size(); j++) {
@@ -134,10 +156,17 @@ public class Chromosome {
                     index = j;
                 }
             }
-            nextGeneration.add(currentGeneration.remove(index));
+            nextGeneration.add(currentGeneration.get(index));
         }
 	    
 		return nextGeneration;	
+	}
+	
+	public void display() {
+		for(float gene : this.genes) {
+			System.out.print(gene + " ");
+		}
+		System.out.println("Fitness = "+this.getFitness());
 	}
 	
 }

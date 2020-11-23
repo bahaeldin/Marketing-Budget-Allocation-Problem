@@ -44,10 +44,14 @@ public class Main {
 		
 		// start algorithm 
 		System.out.println(message_5);
+		
+		/*
 		for (int i = 0; i < trailNumber ; i++) {
 		  // ga uniform 
+			
 		  // ga nonuniform
 		}
+		*/
 		
 		GA ga = new GA(channels,budget);
 		ga.start();
